@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapSerializer", "MapSerializer\MapSerializer.csproj", "{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapSerializer.Test", "MapSerializer.Test\MapSerializer.Test.csproj", "{7DA0703C-56D1-441D-BECE-47607BA3508C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C29D069-87B3-4B49-AF88-3A093CD99F19}
+	EndGlobalSection
+EndGlobal
