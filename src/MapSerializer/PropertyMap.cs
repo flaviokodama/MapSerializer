@@ -7,9 +7,9 @@ namespace MapSerializer
     internal class PropertyMap<T, TProp> : PropertyMapBase, IPropertyMap<T, TProp>
     {
         private TypeMap<T> typeMap;
-        private MapSerializer serializer;
+        private MapSerializerBase serializer;
 
-        internal PropertyMap(TypeMap<T> typeMap, MapSerializer serializer, PropertyInfo propertyInfo) : base(propertyInfo)
+        internal PropertyMap(TypeMap<T> typeMap, MapSerializerBase serializer, PropertyInfo propertyInfo) : base(propertyInfo)
         {
             this.typeMap = typeMap;
             this.serializer = serializer;

@@ -1,17 +1,18 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using MapSerializer.Test.Mock;
 using Xunit;
 
 namespace MapSerializer.Test
 {
-    public class MapSerializer_SerializingTests
+    public class MapXmlSerializerTests
     {
-        private MapSerializer serializer;
+        private MapXmlSerializer serializer;
 
-        public MapSerializer_SerializingTests()
+        public MapXmlSerializerTests()
         {
-            this.serializer = new MapSerializer();
+            this.serializer = new MapXmlSerializer();
         }
 
         [Fact]
@@ -115,30 +116,40 @@ namespace MapSerializer.Test
             //CHECK
             serializedContent.Should().Be($"<ComplexTypeMock><CharProperty>c</CharProperty></ComplexTypeMock>");
         }
-    }
 
-    public class TestTypeMock
-    {
-        public ComplexTypeMock ComplexProperty { get; set; }
+        [Fact]
+        public void MapSerializer_MustSerialize_ComplexType_ToTextRepresentation_WithTypeTag_WhenPropertyType_IsNotMapped()
+        {
+            //SETUP
+            var writer = new StringWriter();
+            var instance = new BaseComplexTypeMock() { ComplexProperty = new ComplexTypeMock() { StringProperty = "Value" } };
 
-        public ComplexTypeMock ComplexField;
+            this.serializer.MapType<BaseComplexTypeMock>().MapProperty(p => p.ComplexProperty);
 
-        public ComplexTypeMock GetValue() => new ComplexTypeMock();
-    }
+            //ACTION
+            this.serializer.Serialize(writer, instance);
+            var serializedContent = writer.ToString();
 
-    public class ComplexTypeMock
-    {
-        public string StringProperty { get; set; }
-        public DateTime DateTimeProperty { get; set; }
-        public double DoubleProperty { get; set; }
-        public int IntegerProperty { get; set; }
-        public char CharProperty { get; set; }
+            //CHECK
+            serializedContent.Should().Be($"<BaseComplexTypeMock><ComplexProperty><ComplexTypeMock>MapSerializer.Test.Mock.ComplexTypeMock</ComplexTypeMock></ComplexProperty></BaseComplexTypeMock>");
+        }
 
-        public decimal DecimalProperty { get; set; }
-    }
-    
-    public class AnotherComplexTypeMock
-    {
+        [Fact]
+        public void MapSerializer_MustSerialize_ComplexType_ToTextRepresentation_WithTypeTag()
+        {
+            //SETUP
+            var writer = new StringWriter();
+            var instance = new BaseComplexTypeMock() { ComplexProperty = new ComplexTypeMock() { StringProperty = "Value" } };
 
+            this.serializer.MapType<BaseComplexTypeMock>().MapProperty(p => p.ComplexProperty);
+            this.serializer.MapType<ComplexTypeMock>().MapProperty(p => p.StringProperty);
+
+            //ACTION
+            this.serializer.Serialize(writer, instance);
+            var serializedContent = writer.ToString();
+
+            //CHECK
+            serializedContent.Should().Be($"<BaseComplexTypeMock><ComplexProperty><ComplexTypeMock><StringProperty>Value</StringProperty></ComplexTypeMock></ComplexProperty></BaseComplexTypeMock>");
+        }
     }
 }
