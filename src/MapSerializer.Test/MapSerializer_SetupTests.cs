@@ -1,14 +1,15 @@
 using System;
+using System.IO;
 using FluentAssertions;
 using Xunit;
 
 namespace MapSerializer.Test
 {
-    public class MapSerializerTest
+    public class MapSerializer_SetupTests
     {
         private MapSerializer serializer;
 
-        public MapSerializerTest()
+        public MapSerializer_SetupTests()
         {
             this.serializer = new MapSerializer();
         }
@@ -61,27 +62,5 @@ namespace MapSerializer.Test
             //CHECK
             action.Should().Throw<ArgumentException>().WithMessage("Invalid expression 'p => p.GetValue()': reference to methods is not supported.");
         }
-    }
-
-    public class TestTypeMock
-    {
-        public ComplexTypeMock ComplexProperty { get; set; }
-
-        public ComplexTypeMock ComplexField;
-
-        public ComplexTypeMock GetValue() => new ComplexTypeMock();
-    }
-
-    public class ComplexTypeMock
-    {
-        public string StringType { get; set; }
-        public DateTime DateTimeType { get; set; }
-        public double DoubleType { get; set; }
-        public int IntegerType { get; set; }
-    }
-    
-    public class AnotherComplexTypeMock
-    {
-
     }
 }

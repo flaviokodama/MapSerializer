@@ -64,7 +64,7 @@ namespace MapSerializer
             var value = propertyInfo.GetValue(reference);
             if (value != null)
             {
-                if (IsPrimitive(propertyInfo))
+                if (IsNativeType(propertyInfo))
                     writer.Write(value);
                 else if (IsEnumerable(propertyInfo))
                     SerializeEnumerable(writer, value);
@@ -75,10 +75,12 @@ namespace MapSerializer
             writer.Write($"</{propertyInfo.Name}>");
         }
 
-        private static bool IsPrimitive(PropertyInfo propertyInfo)
+        private static bool IsNativeType(PropertyInfo propertyInfo)
         {
             return propertyInfo.PropertyType.IsPrimitive ||
-                   propertyInfo.PropertyType.Equals(typeof(string));
+                   propertyInfo.PropertyType.Equals(typeof(string)) ||
+                   propertyInfo.PropertyType.Equals(typeof(decimal)) ||
+                   propertyInfo.PropertyType.Equals(typeof(DateTime));
         }
 
         private static bool IsEnumerable(PropertyInfo propertyInfo)
