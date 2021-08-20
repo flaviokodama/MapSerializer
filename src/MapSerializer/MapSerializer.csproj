@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	
+	<PackageId>MapSerializer</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Flávio Kodama</Authors>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
