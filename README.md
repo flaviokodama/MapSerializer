@@ -1,2 +1,2 @@
 # MapSerializer
-Serialize objects by mapping its type/properties
+Serialize objects to XML by mapping its type/properties
