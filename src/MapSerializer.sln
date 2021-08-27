@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapSerializer", "MapSerializer\MapSerializer.csproj", "{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapSerializer", "MapSerializer\MapSerializer.csproj", "{E42EDA77-1D42-4F51-BBAE-2D94CEBB1C03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapSerializer.Test", "MapSerializer.Test\MapSerializer.Test.csproj", "{7DA0703C-56D1-441D-BECE-47607BA3508C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapSerializer.Test", "MapSerializer.Test\MapSerializer.Test.csproj", "{7DA0703C-56D1-441D-BECE-47607BA3508C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapSerializer.Test.Blackbox", "MapSerializer.Test.Blackbox\MapSerializer.Test.Blackbox.csproj", "{84EA8EE0-88EA-4D0D-9033-F7F36709C79F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DA0703C-56D1-441D-BECE-47607BA3508C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EA8EE0-88EA-4D0D-9033-F7F36709C79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EA8EE0-88EA-4D0D-9033-F7F36709C79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EA8EE0-88EA-4D0D-9033-F7F36709C79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EA8EE0-88EA-4D0D-9033-F7F36709C79F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

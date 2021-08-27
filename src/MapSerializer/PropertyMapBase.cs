@@ -2,7 +2,7 @@
 
 namespace MapSerializer
 {
-    public abstract class PropertyMapBase
+    internal abstract class PropertyMapBase
     {
         internal PropertyInfo PropertyInfo { get; }
 

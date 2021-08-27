@@ -15,9 +15,9 @@ namespace MapSerializer
             this.serializer = serializer;
         }
 
-        public IPropertyMap<T, TAnotherProp> MapProperty<TAnotherProp>(Expression<Func<T, TAnotherProp>> propertyLambda)
+        public IPropertyMap<T, TAnotherProp> MapProperty<TAnotherProp>(Expression<Func<T, TAnotherProp>> propertyExpression)
         {
-            return this.typeMap.MapProperty(propertyLambda);
+            return this.typeMap.MapProperty(propertyExpression);
         }
 
         public ITypeMap<TProp> MapType()
