@@ -11,7 +11,7 @@ namespace MapSerializer
         /// Creates a map to type of which objects will be serialized.
         /// </summary>
         /// <typeparam name="T">Type being mapped.</typeparam>
-        /// <returns><see cref="ITypeMap{T}"/> object that allows properties be mapped.</returns>
+        /// <returns>A map that allows properties be mapped.</returns>
         ITypeMap<T> MapType<T>();
 
         /// <summary>
