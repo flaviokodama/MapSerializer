@@ -6,9 +6,9 @@ namespace MapSerializer
 {
     internal class TypeMap<T> : TypeMapBase, ITypeMap<T>
     {
-        private MapSerializer serializer;
+        private MapSerializerBase serializer;
 
-        internal TypeMap(MapSerializer serializer)
+        internal TypeMap(MapSerializerBase serializer)
         {
             this.serializer = serializer;
             this.Type = typeof(T);

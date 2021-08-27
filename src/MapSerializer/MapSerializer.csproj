@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
 	
 	<PackageId>MapSerializer</PackageId>
-	<Version>1.0.5</Version>
+	<Version>1.1.0</Version>
 	<Authors>Flávio Kodama</Authors>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
