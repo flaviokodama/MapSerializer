@@ -21,29 +21,29 @@ namespace MapSerializer.Test
         public void MapSerializerBase_MustCheckWhether_TypeIsAlreadyMapped()
         {
             //SETUP
-            var instance = new BaseComplexTypeMock() { ComplexProperty = new ComplexTypeMock() };
+            var instance = new TypeWithComplexProperties() { ComplexProperty = new TypeWithStringProperty() };
 
             //ACTION
             var action = new Action(delegate
             {
-                this.serializer.Object.MapType<BaseComplexTypeMock>();
-                this.serializer.Object.MapType<BaseComplexTypeMock>();
+                this.serializer.Object.MapType<TypeWithComplexProperties>();
+                this.serializer.Object.MapType<TypeWithComplexProperties>();
             });
 
             //CHECK
-            action.Should().Throw<InvalidOperationException>().WithMessage("Type 'MapSerializer.Test.Mock.BaseComplexTypeMock' is already mapped.");
+            action.Should().Throw<InvalidOperationException>().WithMessage("Type 'MapSerializer.Test.Mock.TypeWithComplexProperties' is already mapped.");
         }
 
         [Fact]
         public void MapSerializerBase_MustCheckWhether_MappedPropertyIsReadable()
         {
             //SETUP
-            var instance = new BaseComplexTypeMock() { ComplexField = new ComplexTypeMock() };
+            var instance = new TypeWithComplexProperties() { ComplexField = new TypeWithStringProperty() };
 
             //ACTION
             var action = new Action(delegate
             {
-                this.serializer.Object.MapType<BaseComplexTypeMock>().MapProperty(p => p.ComplexField);
+                this.serializer.Object.MapType<TypeWithComplexProperties>().MapProperty(p => p.ComplexField);
             });
 
             //CHECK
@@ -54,12 +54,12 @@ namespace MapSerializer.Test
         public void MapSerializerBase_MustCheckWhether_MappedMemberIsMethod()
         {
             //SETUP
-            var instance = new BaseComplexTypeMock();
+            var instance = new TypeWithComplexProperties();
 
             //ACTION
             var action = new Action(delegate
             {
-                this.serializer.Object.MapType<BaseComplexTypeMock>().MapProperty(p => p.GetValue());
+                this.serializer.Object.MapType<TypeWithComplexProperties>().MapProperty(p => p.GetValue());
             });
 
             //CHECK
@@ -161,7 +161,7 @@ namespace MapSerializer.Test
         public void MapSerializerBase_MustRecognize_Enum_AsNativeType()
         {
             //SETUP
-            var type = typeof(EnumMock);
+            var type = typeof(EnumType);
 
             //ACTION
             var isNative = MapSerializerBase.IsNativeType(type);

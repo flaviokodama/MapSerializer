@@ -16,20 +16,28 @@ namespace MapSerializer
 
             var type = reference.GetType();
 
-            if (IsMapped(type))
-                SerializeMappedType(writer, reference, this.MappedTypes[type]);
+            if (IsEnumerable(type))
+                SerializeEnumerable(writer, reference);
+            else if (IsMapped(type))
+                SerializeMappedTypeWithBracket(writer, reference, this.MappedTypes[type]);
             else
                 writer.Write($"\"{type.Name}\":\"{reference}\"");
         }
 
-        public void SerializeNonRoot(TextWriter writer, object reference)
+        private void SerializeWithBracket(TextWriter writer, object reference)
         {
             var type = reference.GetType();
 
             if (IsMapped(type))
-                SerializeMappedTypeNonRoot(writer, reference, this.MappedTypes[type]);
+            {
+                writer.Write("{");
+                SerializeMappedType(writer, reference, this.MappedTypes[type]);
+                writer.Write("}");
+            }
             else
-                writer.Write($"\"{type.Name}\":\"{reference}\"");
+            {
+                writer.Write($"\"{reference}\"");
+            }
         }
 
         private bool IsMapped(Type type)
@@ -37,20 +45,16 @@ namespace MapSerializer
             return this.MappedTypes.ContainsKey(type);
         }
 
-        private void SerializeMappedType(TextWriter writer, object reference, TypeMapBase map)
+        private void SerializeMappedTypeWithBracket(TextWriter writer, object reference, TypeMapBase map)
         {
             writer.Write("{");
-            map.MappedProperties.ForEachAndBetween(item => SerializeMappedProperty(writer, item.PropertyInfo, reference), () => writer.Write(","));
+            SerializeMappedType(writer, reference, map);
             writer.Write("}");
         }
 
-        private void SerializeMappedTypeNonRoot(TextWriter writer, object reference, TypeMapBase map)
+        private void SerializeMappedType(TextWriter writer, object reference, TypeMapBase map)
         {
-            writer.Write($"\"{map.Type.Name}\":{{");
-
             map.MappedProperties.ForEachAndBetween(item => SerializeMappedProperty(writer, item.PropertyInfo, reference), () => writer.Write(","));
-
-            writer.Write("}");
         }
 
         private void SerializeMappedProperty(TextWriter writer, PropertyInfo propertyInfo, object reference)
@@ -64,20 +68,18 @@ namespace MapSerializer
                 {
                     if (IsNumeric(propertyInfo.PropertyType))
                         writer.Write(value);
+                    else if (IsDateTime(propertyInfo.PropertyType))
+                        writer.Write($"\"{value.ToDateTimeString()}\"");
                     else
                         writer.Write($"\"{value}\"");
                 }
                 else if (IsEnumerable(propertyInfo.PropertyType))
                 {
-                    writer.Write("[");
                     SerializeEnumerable(writer, value);
-                    writer.Write("]");
                 }
                 else
                 {
-                    writer.Write("{");
-                    SerializeNonRoot(writer, value);
-                    writer.Write("}");
+                    SerializeWithBracket(writer, value);
                 }
             }
             else
@@ -88,8 +90,12 @@ namespace MapSerializer
 
         private void SerializeEnumerable(TextWriter writer, object value)
         {
+            writer.Write("[");
+
             var enumerable = value as IEnumerable;
-            enumerable.ForEachAndBetween(item => SerializeNonRoot(writer, item), () => writer.Write(","));
+            enumerable.ForEachAndBetween(item => Serialize(writer, item), () => writer.Write(","));
+
+            writer.Write("]");
         }
     }
 }

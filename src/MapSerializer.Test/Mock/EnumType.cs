@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MapSerializer.Test.Mock
 {
-    internal enum EnumMock
+    internal enum EnumType
     {
         Value1,
         Value2

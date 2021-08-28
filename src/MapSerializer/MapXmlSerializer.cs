@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace MapSerializer
@@ -17,10 +15,23 @@ namespace MapSerializer
 
             var type = reference.GetType();
 
-            if (IsMapped(type))
+            writer.Write($"<{type.Name}>");
+
+            SerializeWithoutTypeName(writer, reference);
+
+            writer.Write($"</{type.Name}>");
+        }
+
+        private void SerializeWithoutTypeName(TextWriter writer, object reference)
+        {
+            var type = reference.GetType();
+
+            if (IsEnumerable(type))
+                SerializeEnumerable(writer, reference);
+            else if (IsMapped(type))
                 SerializeMappedType(writer, reference, this.MappedTypes[type]);
             else
-                writer.Write($"<{type.Name}>{reference}</{type.Name}>");
+                writer.Write(reference);
         }
 
         private bool IsMapped(Type type)
@@ -30,12 +41,8 @@ namespace MapSerializer
 
         private void SerializeMappedType(TextWriter writer, object reference, TypeMapBase map)
         {
-            writer.Write($"<{map.Type.Name}>");
-
             foreach (var propMap in map.MappedProperties)
                 SerializeMappedProperty(writer, propMap.PropertyInfo, reference);
-
-            writer.Write($"</{map.Type.Name}>");
         }
 
         private void SerializeMappedProperty(TextWriter writer, PropertyInfo propertyInfo, object reference)
@@ -46,11 +53,20 @@ namespace MapSerializer
             if (value != null)
             {
                 if (IsNativeType(propertyInfo.PropertyType))
-                    writer.Write(value);
+                {
+                    if (IsDateTime(propertyInfo.PropertyType))
+                        writer.Write(value.ToDateTimeString());
+                    else
+                        writer.Write(value);
+                }
                 else if (IsEnumerable(propertyInfo.PropertyType))
+                {
                     SerializeEnumerable(writer, value);
+                }
                 else
-                    Serialize(writer, value);
+                {
+                    SerializeWithoutTypeName(writer, value);
+                }
             }
 
             writer.Write($"</{propertyInfo.Name}>");

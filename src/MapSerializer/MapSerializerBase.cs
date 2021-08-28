@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo("MapSerializer.Test")]
@@ -39,6 +38,11 @@ namespace MapSerializer
                    type.Equals(typeof(string)) ||
                    type.Equals(typeof(decimal)) ||
                    type.Equals(typeof(DateTime));
+        }
+
+        internal static bool IsDateTime(Type type)
+        {
+            return type.Equals(typeof(DateTime));
         }
 
         internal static bool IsEnumerable(Type type)
