@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
 using MapSerializer.Test.Mock;
@@ -150,6 +151,23 @@ namespace MapSerializer.Test
 
             //CHECK
             serializedContent.Should().Be($"<BaseComplexTypeMock><ComplexProperty><ComplexTypeMock><StringProperty>Value</StringProperty></ComplexTypeMock></ComplexProperty></BaseComplexTypeMock>");
+        }
+
+        [Fact]
+        public void MapSerializer_MustHaveMapper_GenericIEnumerable()
+        {
+            var instance = new List<BaseComplexTypeMock>
+            {
+                new BaseComplexTypeMock { ComplexTypeList = new List<ComplexTypeMock> { new ComplexTypeMock { StringProperty = "StringTypeTest_1" } } },
+                new BaseComplexTypeMock { ComplexTypeList = new List<ComplexTypeMock> { new ComplexTypeMock { StringProperty = "StringTypeTest_2" } } }
+            };
+            var writer = new StringWriter();
+
+            this.serializer.MapType<ComplexTypeMock>().MapProperty(_ => _.StringProperty);
+            this.serializer.MapType<BaseComplexTypeMock>().MapProperty(_ => _.ComplexTypeList);
+            this.serializer.Serialize(writer, instance);
+
+            writer.ToString().Should().Be("<BaseComplexTypeMock><ComplexTypeList><ComplexTypeMock><StringProperty>StringTypeTest_1</StringProperty></ComplexTypeMock></ComplexTypeList></BaseComplexTypeMock><BaseComplexTypeMock><ComplexTypeList><ComplexTypeMock><StringProperty>StringTypeTest_2</StringProperty></ComplexTypeMock></ComplexTypeList></BaseComplexTypeMock>");
         }
     }
 }
