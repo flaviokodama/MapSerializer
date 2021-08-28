@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo("MapSerializer.Test")]
@@ -67,5 +68,7 @@ namespace MapSerializer
                     return false;
             }
         }
+
+        protected static Type GetIEnumerableType(Type type) => type.GetTypeInfo().GenericTypeArguments[0];
     }
 }
