@@ -17,7 +17,10 @@ namespace MapSerializer
 
             var type = reference.GetType();
 
-            if (IsMapped(type))
+            if (IsIEnumerableMapped(type))
+                foreach(var referenceItem in reference as IEnumerable)
+                    SerializeMappedType(writer, referenceItem, this.MappedTypes[GetIEnumerableType(type)]);
+            else if (IsMapped(type))
                 SerializeMappedType(writer, reference, this.MappedTypes[type]);
             else
                 writer.Write($"<{type.Name}>{reference}</{type.Name}>");
@@ -26,6 +29,15 @@ namespace MapSerializer
         private bool IsMapped(Type type)
         {
             return this.MappedTypes.ContainsKey(type);
+        }
+
+        private bool IsIEnumerableMapped(Type type)
+        {
+            var typeInfo = type.GetTypeInfo();
+            if (IsEnumerable(typeInfo))
+                return IsMapped(GetIEnumerableType(type));
+
+            return false;
         }
 
         private void SerializeMappedType(TextWriter writer, object reference, TypeMapBase map)
