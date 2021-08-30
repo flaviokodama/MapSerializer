@@ -73,6 +73,10 @@ namespace MapSerializer
                     else
                         writer.Write($"\"{value}\"");
                 }
+                else if (IsPrimitiveEnumerable(propertyInfo.PropertyType))
+                {
+                    SerializePrimitiveEnumerable(writer, value);
+                }
                 else if (IsEnumerable(propertyInfo.PropertyType))
                 {
                     SerializeEnumerable(writer, value);
@@ -94,6 +98,16 @@ namespace MapSerializer
 
             var enumerable = value as IEnumerable;
             enumerable.ForEachAndBetween(item => Serialize(writer, item), () => writer.Write(","));
+
+            writer.Write("]");
+        }
+
+        private void SerializePrimitiveEnumerable(TextWriter writer, object value)
+        {
+            writer.Write("[");
+
+            var enumerable = value as IEnumerable;
+            enumerable.ForEachAndBetween(item => SerializeWithBracket(writer, item), () => writer.Write(","));
 
             writer.Write("]");
         }
