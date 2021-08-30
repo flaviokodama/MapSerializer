@@ -36,7 +36,10 @@ namespace MapSerializer
             }
             else
             {
-                writer.Write($"\"{reference}\"");
+                if(IsNumeric(type))
+                    writer.Write($"{reference}");
+                else
+                    writer.Write($"\"{reference}\"");
             }
         }
 
