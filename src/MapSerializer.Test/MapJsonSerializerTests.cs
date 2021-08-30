@@ -229,5 +229,23 @@ namespace MapSerializer.Test
             serializedContent.Should().Be(sampleSerialization);
         }
 
+        [Fact]
+        public void MapJsonSerializer_MustSerialize_IEnumerableOfInt()
+        {
+            //SETUP
+            var instance = new TypeWithIEnumerableOfPrimitiveTypesProperty() { ListOfIntegers = new List<int> { 1,2,3 } };
+            var sampleSerialization = ComparisonSerializer.SerializeToJson(instance);
+
+            this.serializer.MapType<TypeWithIEnumerableOfPrimitiveTypesProperty>().MapProperty(p => p.ListOfIntegers);
+
+            //ACTION
+            this.serializer.Serialize(writer,instance);
+            var serializedContent = writer.ToString();
+
+            //CHECK
+            serializedContent.Should().Be(sampleSerialization);
+        }
+
+
     }
 }
