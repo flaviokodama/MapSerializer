@@ -14,12 +14,13 @@ namespace MapSerializer
                 return;
 
             var type = reference.GetType();
+            var typeName = IsNativeType(type) ? type.Name.ToLowerInvariant() : type.Name;
 
-            writer.Write($"<{type.Name}>");
+            writer.Write($"<{typeName}>");
 
             SerializeWithoutTypeName(writer, reference);
 
-            writer.Write($"</{type.Name}>");
+            writer.Write($"</{typeName}>");
         }
 
         private void SerializeWithoutTypeName(TextWriter writer, object reference)
