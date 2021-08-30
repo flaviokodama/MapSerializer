@@ -5,7 +5,7 @@
 
     <PackageId>MapSerializer</PackageId>
     <Version>1.2.0</Version>
-    <Authors>Flávio Kodama</Authors>
+    <Authors>Flávio Kodama, Gustavo Ferraz Fontes</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A fast XML/JSON serializer based on mapping types and properties</Description>
