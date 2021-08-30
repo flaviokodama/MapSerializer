@@ -51,7 +51,11 @@ namespace MapSerializer
         }
         internal static bool IsPrimitiveEnumerable(Type type)
         {
-            return IsEnumerable(type) && ( typeof(IEnumerable<string>).IsAssignableFrom(type) ||  typeof(IEnumerable<decimal>).IsAssignableFrom(type) ||  typeof(IEnumerable<DateTime>).IsAssignableFrom(type) );
+            return IsEnumerable(type) && ( 
+                typeof(IEnumerable<string>).IsAssignableFrom(type)  ||  
+                typeof(IEnumerable<decimal>).IsAssignableFrom(type) ||  
+                typeof(IEnumerable<int>).IsAssignableFrom(type)     ||
+                typeof(IEnumerable<DateTime>).IsAssignableFrom(type));
         }
 
         internal static bool IsNumeric(Type type)
