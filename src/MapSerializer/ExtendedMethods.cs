@@ -6,6 +6,11 @@ namespace MapSerializer
 {
     internal static class ExtendedMethods
     {
+        public static string ToDateTimeString(this object value)
+        {
+            return ((DateTime)value).ToString("o");
+        }
+
         public static int Count(this IEnumerable enumerable)
         {
             int res = 0;
