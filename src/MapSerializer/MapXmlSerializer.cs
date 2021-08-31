@@ -14,12 +14,22 @@ namespace MapSerializer
                 return;
 
             var type = reference.GetType();
+            var typeName = IsNativeType(type) ? NormalizeName(type) : type.Name;
 
-            writer.Write($"<{type.Name}>");
+            writer.Write($"<{typeName}>");
 
             SerializeWithoutTypeName(writer, reference);
 
-            writer.Write($"</{type.Name}>");
+            writer.Write($"</{typeName}>");
+        }
+
+        private static string NormalizeName(Type type)
+        {
+            if(IsNumeric(type))
+            {
+                return type.Name.ToLowerInvariant().Trim('1', '2', '3', '4', '6');
+            }
+            return type.Name.ToLowerInvariant();
         }
 
         private void SerializeWithoutTypeName(TextWriter writer, object reference)
