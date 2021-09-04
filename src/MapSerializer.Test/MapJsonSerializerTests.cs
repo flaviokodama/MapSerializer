@@ -129,7 +129,7 @@ namespace MapSerializer.Test
         {
             //SETUP
             var instance = new TypeWith1ComplexProperty() { ComplexProperty = new TypeWithStringProperty() { StringProperty = "Value" } };
-            
+
             this.serializer.MapType<TypeWith1ComplexProperty>().MapProperty(p => p.ComplexProperty);
 
             //ACTION
@@ -222,7 +222,7 @@ namespace MapSerializer.Test
             this.serializer.MapType<TypeWithEnumerableOfStringProperty>().MapProperty(p => p.ListProperty);
 
             //ACTION
-            this.serializer.Serialize(writer,instance);
+            this.serializer.Serialize(writer, instance);
             var serializedContent = writer.ToString();
 
             //CHECK
@@ -233,19 +233,34 @@ namespace MapSerializer.Test
         public void MapJsonSerializer_MustSerialize_IEnumerableOfInt()
         {
             //SETUP
-            var instance = new TypeWithIEnumerableOfPrimitiveTypesProperty() { ListOfIntegers = new List<int> { 1,2,3 } };
+            var instance = new TypeWithIEnumerableOfPrimitiveTypesProperty() { ListOfIntegers = new List<int> { 1, 2, 3 } };
             var sampleSerialization = ComparisonSerializer.SerializeToJson(instance);
 
             this.serializer.MapType<TypeWithIEnumerableOfPrimitiveTypesProperty>().MapProperty(p => p.ListOfIntegers);
 
             //ACTION
-            this.serializer.Serialize(writer,instance);
+            this.serializer.Serialize(writer, instance);
             var serializedContent = writer.ToString();
 
             //CHECK
             serializedContent.Should().Be(sampleSerialization);
         }
 
+        [Fact]
+        public void MapJsonSerializer_MustSerialize_Enum()
+        {
+            //SETUP
+            var instance = new TypeWithEnumProperty { EnumProperty = EnumType.Value1 };
+            var sampleSerialization = ComparisonSerializer.SerializeToJson(instance);
+            this.serializer.MapType<TypeWithEnumProperty>().MapProperty(_ => _.EnumProperty);
+
+            //ACTION
+            this.serializer.Serialize(writer, instance);
+            var serializedContent = writer.ToString();
+
+            //CHECK
+            serializedContent.Should().Be(sampleSerialization);
+        }
 
     }
 }
