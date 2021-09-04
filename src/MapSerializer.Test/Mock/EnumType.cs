@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MapSerializer.Test.Mock
+﻿namespace MapSerializer.Test.Mock
 {
-    internal enum EnumType
+    public enum EnumType
     {
         Value1,
         Value2
