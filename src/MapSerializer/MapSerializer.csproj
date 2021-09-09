@@ -4,17 +4,22 @@
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
 
     <PackageId>MapSerializer</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.2.5</Version>
     <Authors>Flávio Kodama, Gustavo Ferraz Fontes</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A fast XML/JSON serializer based on mapping types and properties</Description>
     <PackageTags>Serializer, Serialization, Json, Xml, Map</PackageTags>
     <Copyright>MIT</Copyright>
-    <PackageReleaseNotes>-Now both MapXmlSerializer and MapJsonSerializer works properly on IEnumerable passed as root object to Serialize() method.
+    <PackageReleaseNotes>Version 1.2.5:
+-Now Enum types are serialized according to other serializers used by community.
+Version 1.2:
+-Now both MapXmlSerializer and MapJsonSerializer works properly on IEnumerable passed as root object to Serialize() method.
 -Now XML and JSON output format are nearly identical to other serializers used by community. This may allow more compatibility with other libraries in deserialization context.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/flaviokodama/MapSerializer</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyVersion>1.2.5.0</AssemblyVersion>
+    <FileVersion>1.2.5.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
