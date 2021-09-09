@@ -252,5 +252,21 @@ namespace MapSerializer.Test
             serializedContent.Should().Be(sampleSerialization);
         }
 
+        [Fact]
+        public void MapXmlSerializer_MustSerialize_Enum()
+        {
+            //SETUP
+            var instance = new TypeWithEnumProperty { EnumProperty = EnumType.Value1 };
+            var sampleSerialization = ComparisonSerializer.SerializeToXml(instance);
+            this.serializer.MapType<TypeWithEnumProperty>().MapProperty(p => p.EnumProperty);
+
+            //ACTION
+            this.serializer.Serialize(writer, instance);
+            var serializedContent = writer.ToString();
+
+            //CHECK
+            serializedContent.Should().Be(sampleSerialization);
+        }
+
     }
 }

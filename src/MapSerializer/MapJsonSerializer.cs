@@ -69,12 +69,7 @@ namespace MapSerializer
             {
                 if (IsNativeType(propertyInfo.PropertyType))
                 {
-                    if (IsNumeric(propertyInfo.PropertyType))
-                        writer.Write(value);
-                    else if (IsDateTime(propertyInfo.PropertyType))
-                        writer.Write($"\"{value.ToDateTimeString()}\"");
-                    else
-                        writer.Write($"\"{value}\"");
+                    SerializeNativeType(writer, propertyInfo, value);
                 }
                 else if (IsPrimitiveEnumerable(propertyInfo.PropertyType))
                 {
@@ -93,6 +88,24 @@ namespace MapSerializer
             {
                 writer.Write($"null");
             }
+        }
+
+        private static void SerializeNativeType(TextWriter writer, PropertyInfo propertyInfo, object value)
+        {
+            if (propertyInfo.PropertyType.IsEnum)
+            {
+                writer.Write((int)value);
+            }
+            else if (IsNumeric(propertyInfo.PropertyType))
+            {
+                writer.Write(value);
+            }
+            else if (IsDateTime(propertyInfo.PropertyType))
+            {
+                writer.Write($"\"{value.ToDateTimeString()}\"");
+            }
+            else
+                writer.Write($"\"{value}\"");
         }
 
         private void SerializeEnumerable(TextWriter writer, object value)

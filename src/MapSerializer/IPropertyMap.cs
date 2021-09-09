@@ -14,14 +14,14 @@ namespace MapSerializer
         /// Maps a property to be serialized.
         /// </summary>
         /// <typeparam name="TAnotherProp">Property type.</typeparam>
-        /// <param name="propertyLambda">Expression used to select Property being mapped.</param>
+        /// <param name="propertyExpression">Expression used to select Property being mapped.</param>
         /// <returns>A property map that allows more properties to be mapped easily.</returns>
         IPropertyMap<T, TAnotherProp> MapProperty<TAnotherProp>(Expression<Func<T, TAnotherProp>> propertyExpression);
 
         /// <summary>
         /// Creates a map to <see cref="TProp"/> type.
         /// </summary>
-        /// <returns>A map that allows properties be mapped.</returns>
+        /// <returns>A map that allows properties be serialized.</returns>
         ITypeMap<TProp> MapType();
     }
 }
