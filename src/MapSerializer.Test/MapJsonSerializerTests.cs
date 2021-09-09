@@ -252,7 +252,7 @@ namespace MapSerializer.Test
             //SETUP
             var instance = new TypeWithEnumProperty { EnumProperty = EnumType.Value1 };
             var sampleSerialization = ComparisonSerializer.SerializeToJson(instance);
-            this.serializer.MapType<TypeWithEnumProperty>().MapProperty(_ => _.EnumProperty);
+            this.serializer.MapType<TypeWithEnumProperty>().MapProperty(p => p.EnumProperty);
 
             //ACTION
             this.serializer.Serialize(writer, instance);
